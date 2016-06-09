@@ -50,10 +50,6 @@ async.parallel([
     console.log('Pins set up');
 });
 
-app.get('/', function (req, res) {
-    res.render('index', { pattern: null });
-});
-
 app.get('/switch', function (req, res) {
     async.parallel([
         function(callback) {
@@ -156,17 +152,6 @@ app.get('/toggle', function(req, res) {
         });
     }
 
-/*ls.stdout.on('data', (data) => {
-  console.log(`stdout: ${data}`);
-});
-
-ls.stderr.on('data', (data) => {
-  console.log(`stderr: ${data}`);
-});
-
-ls.on('close', (code) => {
-  console.log(`child process exited with code ${code}`);
-});*/
     res.render('toggle', { pattern: null });
 });
 
