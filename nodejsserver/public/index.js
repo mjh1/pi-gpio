@@ -1335,20 +1335,20 @@ var bedroomswitch = document.querySelector('.bedroom-switch');
 new Switchery(bedroomswitch, {className:"switchery switchery-large"});
 
 function switchchange(e) {
-console.log(e);
-if (e.target.className == 'kitchen-switch') {
-var room = 'kitchen';
-} else if (e.target.className == 'bedroom-switch') {
-var room = 'bedroom';
-}
-if (e.target.checked) {
-var operation = '1';
-} else {
-var operation = '0';
-}
-$.get( "/toggle?room="+room+"&switch="+operation, function( data ) {
-console.log(data);
-});
+  console.log(e);
+  if (e.target.className == 'kitchen-switch') {
+    var room = 'kitchen';
+  } else if (e.target.className == 'bedroom-switch') {
+    var room = 'bedroom';
+  }
+  if (e.target.checked) {
+    var operation = '1';
+  } else {
+    var operation = '0';
+  }
+  $.get( "/toggle?room="+room+"&switch="+operation, function( data ) {
+    console.log(data);
+  });
 }
 
 kitchenswitch.onchange = switchchange

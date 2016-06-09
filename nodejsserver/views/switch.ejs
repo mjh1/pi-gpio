@@ -1,36 +1,32 @@
 <!DOCTYPE html>
 <html >
-  <head>
-    <meta charset="UTF-8">
-    <title>Speaker switch</title>
-    
-    
-    
-    
-        <link rel="stylesheet" href="/public/switchery.css">
+<head>
+  <meta charset="UTF-8">
+  <title>Speaker switch</title>
 
-    
-   <meta name="viewport" content="width=device-width,initial-scale=1"> 
-    
-  </head>
+  <link rel="stylesheet" href="/public/switchery.css">
 
-  <body>
-<div style="width:100px; margin-left:auto; margin-right:auto; padding-top:20px">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+  <div style="width:100px; margin-left:auto; margin-right:auto; padding-top:20px">
     <strong>Bedroom</strong>
-<br />
-<input type="checkbox" class="bedroom-switch" <%= bedroomOn ? 'checked' : '' %> />
-<br /><br />
-<strong>Kitchen</strong>
-<br />
-<input type="checkbox" class="kitchen-switch" <%= kitchenOn ? 'checked' : '' %> />
-<br /><br />
+    <br />
+    <input type="checkbox" class="bedroom-switch" <%= bedroomOn ? 'checked' : '' %> />
+    <br /><br />
+    <strong>Kitchen</strong>
+    <br />
+    <input type="checkbox" class="kitchen-switch" <%= kitchenOn ? 'checked' : '' %> />
+    <br /><br />
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-        <script src="/public/index.js"></script>
+    <script src="/public/index.js"></script>
 
-</div>
-    
-    
-  </body>
+  </div>
+
+</body>
 </html>
 

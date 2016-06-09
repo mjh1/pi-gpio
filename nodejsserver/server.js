@@ -43,124 +43,118 @@ async.parallel([
         gpio.setup(12, gpio.DIR_OUT, callback)
     },
 ], function(err, results) {
-        console.log("err:");
-        console.log(err);
-        console.log("results:");
-        console.log(results);
+    console.log("err:");
+    console.log(err);
+    console.log("results:");
+    console.log(results);
     console.log('Pins set up');
 });
 
 app.get('/', function (req, res) {
-  res.render('index', { pattern: null });
+    res.render('index', { pattern: null });
 });
 
 app.get('/switch', function (req, res) {
-async.parallel([
-    function(callback) {
-        gpio.read(37, callback)
-    },
-    function(callback) {
-        gpio.read(33, callback)
-    },
-    function(callback) {
-        gpio.read(15, callback)
-    },
-    function(callback) {
-        gpio.read(13, callback)
-    },
-    function(callback) {
-        gpio.read(31, callback)
-    },
-    function(callback) {
-        gpio.read(29, callback)
-    },
-    function(callback) {
-        gpio.read(7, callback)
-    },
-    function(callback) {
-        gpio.read(12, callback)
-    },
+    async.parallel([
+        function(callback) {
+            gpio.read(37, callback)
+        },
+        function(callback) {
+            gpio.read(33, callback)
+        },
+        function(callback) {
+            gpio.read(15, callback)
+        },
+        function(callback) {
+            gpio.read(13, callback)
+        },
+        function(callback) {
+            gpio.read(31, callback)
+        },
+        function(callback) {
+            gpio.read(29, callback)
+        },
+        function(callback) {
+            gpio.read(7, callback)
+        },
+        function(callback) {
+            gpio.read(12, callback)
+        },
     ], function(err, results) {
         console.log("err:");
         console.log(err);
         console.log("results:");
         console.log(results);
         console.log('reads complete');
-  res.render('switch', { 
-	bedroomOn: results[0] && results[1] && results[2] && results[3],
-	kitchenOn: results[4] && results[5] && results[6] && results[7] 
- });
+        res.render('switch', {
+            bedroomOn: results[0] && results[1] && results[2] && results[3],
+            kitchenOn: results[4] && results[5] && results[6] && results[7]
+       });
     });
-
-
 });
 
 function delayedWrite(pin, value, callback) {
-    //setTimeout(function() {
-        console.log("write pin: " + pin + " value: " + value);
-        gpio.write(pin, value, callback);
-    //}, 500);
+    console.log("write pin: " + pin + " value: " + value);
+    gpio.write(pin, value, callback);
 }
 
 app.get('/toggle', function(req, res) {
-  var url_parts = url.parse(req.url, true);
-  var query = url_parts.query;
-  var room = query['room'];
-  var operation = query['switch'];
-  console.log(query);
+    var url_parts = url.parse(req.url, true);
+    var query = url_parts.query;
+    var room = query['room'];
+    var operation = query['switch'];
+    console.log(query);
 
-if (operation == '1') {
-	operation = 1;
-} else {
-	operation = 0;
-}
+    if (operation == '1') {
+        operation = 1;
+    } else {
+        operation = 0;
+    }
 
-  if (room == 'kitchen') {
-    console.log('switch kitchen ' + operation);
-async.parallel([
-        function(callback) {
-            delayedWrite(31, operation, callback);
-        },
-        function(callback) {
-            delayedWrite(29, operation, callback);
-        },
-        function(callback) {
-            delayedWrite(7, operation, callback);
-        },
-        function(callback) {
-            delayedWrite(12, operation, callback);
-        },
-    ], function(err, results) {
-        console.log("err:");
-        console.log(err);
-        console.log("results:");
-        console.log(results);
-        console.log('Writes complete');
-    });
-  } else if (room == 'bedroom') {
-
-
-async.parallel([
-        function(callback) {
-            delayedWrite(37, operation, callback);
-        },
-        function(callback) {
-            delayedWrite(33, operation, callback);
-        },
-        function(callback) {
-            delayedWrite(15, operation, callback);
-        },
-        function(callback) {
-            delayedWrite(13, operation, callback);
-        },
-    ], function(err, results) {
-        console.log("err:");
-        console.log(err);
-	console.log("results:");
-	console.log(results);
-        console.log('Writes complete');
-    });
-  }
+    if (room == 'kitchen') {
+        console.log('switch kitchen ' + operation);
+        async.parallel([
+            function(callback) {
+                delayedWrite(31, operation, callback);
+            },
+            function(callback) {
+                delayedWrite(29, operation, callback);
+            },
+            function(callback) {
+                delayedWrite(7, operation, callback);
+            },
+            function(callback) {
+                delayedWrite(12, operation, callback);
+            },
+        ], function(err, results) {
+            console.log("err:");
+            console.log(err);
+            console.log("results:");
+            console.log(results);
+            console.log('Writes complete');
+        });
+    } else if (room == 'bedroom') {
+        async.parallel([
+            function(callback) {
+                delayedWrite(37, operation, callback);
+            },
+            function(callback) {
+                delayedWrite(33, operation, callback);
+            },
+            function(callback) {
+                delayedWrite(15, operation, callback);
+            },
+            function(callback) {
+                delayedWrite(13, operation, callback);
+            },
+        ], function(err, results) {
+            console.log("err:");
+            console.log(err);
+            console.log("results:");
+            console.log(results);
+            console.log('Writes complete');
+        });
+    }
 
 /*ls.stdout.on('data', (data) => {
   console.log(`stdout: ${data}`);
@@ -173,7 +167,7 @@ ls.stderr.on('data', (data) => {
 ls.on('close', (code) => {
   console.log(`child process exited with code ${code}`);
 });*/
-  res.render('toggle', { pattern: null });
+    res.render('toggle', { pattern: null });
 });
 
 app.listen(process.env.PORT || 3000);
