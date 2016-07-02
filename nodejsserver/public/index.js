@@ -1334,12 +1334,17 @@ new Switchery(kitchenswitch, {className:"switchery switchery-large"});
 var bedroomswitch = document.querySelector('.bedroom-switch');
 new Switchery(bedroomswitch, {className:"switchery switchery-large"});
 
+var studyswitch = document.querySelector('.study-switch');
+new Switchery(studyswitch, {className:"switchery switchery-large"});
+
 function switchchange(e) {
   console.log(e);
   if (e.target.className == 'kitchen-switch') {
     var room = 'kitchen';
   } else if (e.target.className == 'bedroom-switch') {
     var room = 'bedroom';
+  } else if (e.target.className == 'study-switch') {
+    var room = 'study';
   }
   if (e.target.checked) {
     var operation = '1';
@@ -1353,3 +1358,4 @@ function switchchange(e) {
 
 kitchenswitch.onchange = switchchange
 bedroomswitch.onchange = switchchange
+studyswitch.onchange = switchchange

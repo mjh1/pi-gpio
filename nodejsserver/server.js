@@ -56,10 +56,10 @@ app.get('/switch', function (req, res) {
             gpio.read(37, callback)
         },
         function(callback) {
-            gpio.read(33, callback)
+            gpio.read(15, callback)
         },
         function(callback) {
-            gpio.read(15, callback)
+            gpio.read(33, callback)
         },
         function(callback) {
             gpio.read(13, callback)
@@ -68,13 +68,7 @@ app.get('/switch', function (req, res) {
             gpio.read(31, callback)
         },
         function(callback) {
-            gpio.read(29, callback)
-        },
-        function(callback) {
             gpio.read(7, callback)
-        },
-        function(callback) {
-            gpio.read(12, callback)
         },
     ], function(err, results) {
         console.log("err:");
@@ -83,8 +77,9 @@ app.get('/switch', function (req, res) {
         console.log(results);
         console.log('reads complete');
         res.render('switch', {
-            bedroomOn: results[0] && results[1] && results[2] && results[3],
-            kitchenOn: results[4] && results[5] && results[6] && results[7]
+            studyOn: results[0] && results[1],
+            bedroomOn: results[2] && results[3],
+            kitchenOn: results[4] && results[5]
        });
     });
 });
@@ -114,13 +109,7 @@ app.get('/toggle', function(req, res) {
                 delayedWrite(31, operation, callback);
             },
             function(callback) {
-                delayedWrite(29, operation, callback);
-            },
-            function(callback) {
                 delayedWrite(7, operation, callback);
-            },
-            function(callback) {
-                delayedWrite(12, operation, callback);
             },
         ], function(err, results) {
             console.log("err:");
@@ -132,16 +121,25 @@ app.get('/toggle', function(req, res) {
     } else if (room == 'bedroom') {
         async.parallel([
             function(callback) {
-                delayedWrite(37, operation, callback);
-            },
-            function(callback) {
                 delayedWrite(33, operation, callback);
             },
             function(callback) {
-                delayedWrite(15, operation, callback);
+                delayedWrite(13, operation, callback);
+            },
+        ], function(err, results) {
+            console.log("err:");
+            console.log(err);
+            console.log("results:");
+            console.log(results);
+            console.log('Writes complete');
+        });
+    } else if (room == 'study') {
+        async.parallel([
+            function(callback) {
+                delayedWrite(37, operation, callback);
             },
             function(callback) {
-                delayedWrite(13, operation, callback);
+                delayedWrite(15, operation, callback);
             },
         ], function(err, results) {
             console.log("err:");
